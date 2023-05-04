@@ -24,4 +24,4 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Make sure it builds
-      run: dotnet build ${{ env.WORKING_DIR }}
+      run: dotnet build ${{ env.WORKING_DIR }} 
