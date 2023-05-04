@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0
+
+
+
+
+WORKDIR /app
+COPY Hangman.csproj Hangman.csproj
+COPY Program.cs Program.cs
+
+
+RUN dotnet publish -o dist
+
+
+CMD [ "dotnet", "dist/Hangman.dll" ]

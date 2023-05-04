@@ -1,3 +1,5 @@
+using System;
+
 namespace TemplateApi;
 
 public class WeatherForecast

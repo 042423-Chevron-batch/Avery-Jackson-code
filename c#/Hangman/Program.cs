@@ -1,4 +1,5 @@
-﻿// Given a random word, users have 6 wrong answers to guess the word
+﻿
+// Given a random word, users have 6 wrong answers to guess the word
 // If the character user guesses exist in the word, all occurrences of the character is filled in
 // If the character user guesses does not exist in the word, it is added to the "wrong guesses" list and the user has one less life
 // User wins the game if they correctly guesses the word before they run out of lives
@@ -20,16 +21,24 @@
 // if letter is not in word
 // ----> Letter not in the word
 // If user misses letter 6 times, game ends
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 string[] MysteryWord = new string[7];
 
 //Country, shoe types, NBA teams
-MysteryWord[0] = "bangladesh";
-MysteryWord[1] = "adidas";
-MysteryWord[2] = "lakers";
-MysteryWord[3] = "elephant";
-MysteryWord[4] = "candle";
-MysteryWord[5] = "algorithm";
-MysteryWord[6] = "ireland";
+MysteryWord[0] = "Bangladesh";
+MysteryWord[1] = "Jordans";
+MysteryWord[2] = "Lakers";
+MysteryWord[3] = "Ostrich";
+MysteryWord[4] = "Candle";
+MysteryWord[5] = "Algorithm";
+MysteryWord[6] = "Ireland";
+
+for (int i = 0; i < MysteryWord.Length; i++){
+    MysteryWord[i] = MysteryWord[i].ToUpper();
+}
 
 Random random = new Random();
 
@@ -40,7 +49,6 @@ string KnownWord = MysteryWord[randomIndex];
 
 //Convert string to char array
 char[] WordToGuess = KnownWord.ToCharArray();
-int numOfChances = 6;
 
 
 
@@ -50,8 +58,8 @@ for (int i = 0; i < KnownWord.Length; i++)
     //generate a random number
     int randomNumber = random.Next(0, KnownWord.Length);
     if (randomNumber <= KnownWord.Length)
-{
-     WordToGuess[randomNumber] = '_';
+    {
+        WordToGuess[randomNumber] = '_';
 
             //Console.WriteLine(WordToGuess);
     }
@@ -73,41 +81,53 @@ Dictionary<char, int> MissingDict = new Dictionary<char, int>();
 for (int k=0; k <KnownWord.Length; k++ ){
 
     if (shownWord[k]=='_'){
-        MissingDict.Add(KnownWord[k],k);
-}
+        MissingDict.TryAdd(KnownWord[k],k);
+    }
 
 }
 //Console.WriteLine(MissingDict.keys);
 
 var MissingLettrers = MissingDict.Keys.Except(shownWord);
 string missingLettersString = new string(MissingLettrers.ToArray());
-Console.WriteLine(missingLettersString);
 
+
+//ten chances for failure to type the right letter
+int NumChances =6;
 char [] Shownwords = shownWord.ToCharArray();
-for (int j=0; j <= 20 ; j++ ){
-    Console.WriteLine("Type a missing character : ");
+for (int j=0; j <20 ; j++ ){
+    Console.Write("Type a missing character : ");
     char LetterTyped = Console.ReadKey().KeyChar;
+    char upperCaseLetter = char.ToUpper(LetterTyped);
 
      //LetterTyped = h, missingLettersString =Addi(h)
-    if (missingLettersString.Contains(LetterTyped)){
-   Shownwords[MissingDict[LetterTyped]] = LetterTyped;
-    Console.WriteLine("You guessed it right. Enter another letter.");
-    Console.WriteLine(Shownwords);
+    if (missingLettersString.Contains(upperCaseLetter)){
+        Shownwords[MissingDict[upperCaseLetter]] = upperCaseLetter;
+        Console.WriteLine(" You guess it right ");
+        Console.WriteLine("Guess Another Letter");
+
+        string GuessedWord = new string(Shownwords);
+        Console.WriteLine("Your Progress " + GuessedWord);
+        //Console.WriteLine("The WordToGuess word is " + KnownWord);
+
+
+        if (GuessedWord == KnownWord){
+        Console.WriteLine("You won the Game");
+        break;
+    }
         }
-     
     else{
-        numOfChances--;
-        Console.WriteLine(" You got it wrong, you have " + numOfChances + " chances left");
-        if(numOfChances == 0){
-            Console.WriteLine("You don't have any more chances. You lost the game. The correct answer is: " + KnownWord);
+        NumChances--;
+        Console.WriteLine(" You got it wrong, you have " + NumChances + " chances ");
+        if (NumChances==0){
+            Console.WriteLine("You don't have anymore chances, You lost the Game");
             break;
-
         }
     }
-  
 
-    }
-    
+
+
+
+}
 
 
 
