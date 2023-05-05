@@ -45,8 +45,6 @@ jobs:
           path: Hangman
           context: ${{ env.WORKING_DIR }}
           
-          
-          
   deploy:
     runs-on: ubuntu-latest
     needs: build_Multistep
