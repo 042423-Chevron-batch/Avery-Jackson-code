@@ -1,14 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0
-
-
-
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS Build
 
 WORKDIR /app
-COPY Hangman.csproj Hangman.csproj
-COPY Program.cs Program.cs
+
+COPY . /app/
+
+RUN dotnet publish -c Release -o dist
 
 
-RUN dotnet publish -o dist
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS Run
 
+WORKDIR /app
+COPY --from=Build /app/dist/ .
 
-CMD [ "dotnet", "dist/Hangman.dll" ]
+CMD ["dotnet", "Hangman.dll"]
