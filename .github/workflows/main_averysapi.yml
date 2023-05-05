@@ -67,6 +67,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AVERYSAPI }}
           package: ${{ env.WORKING_DIR }}
-          package: .
+
 
 
