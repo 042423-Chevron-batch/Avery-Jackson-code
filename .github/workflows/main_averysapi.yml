@@ -37,4 +37,37 @@ jobs:
           context: ${{ env.WORKING_DIR }}
           push: true
           tags: avejackson/hangman:8000
+          
+      - name: Upload Artifact 
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: Hangman
+          context: ${{ env.WORKING_DIR }}
+          
+          
+          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_Multistep
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      - name: Download artifact from build_Multistep
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+          context: ${{ env.WORKING_DIR }}
+        
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'averysapi'
+          #context: ${{ env.WORKING_DIR }}
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AVERYSAPI }}
+          package: ${{ env.WORKING_DIR }}
+
 
