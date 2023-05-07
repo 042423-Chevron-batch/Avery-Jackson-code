@@ -32,11 +32,8 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v4
         with:
-<<<<<<< HEAD
-          context: ${{ env.WORKIN_DIR }}
-=======
+          #context: ${{ env.WORKIN_DIR }}
           context: .
->>>>>>> fca9628506e60f445ab6454968e946cf5266b4bc
           push: true
           tags: avejackson/hangman:8000
           
