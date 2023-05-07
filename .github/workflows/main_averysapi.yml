@@ -34,7 +34,6 @@ jobs:
         with:
           #context: ${{ env.WORKIN_DIR }}
           context: .
-          file: dist/Dockerfile
           push: true
           tags: avejackson/hangman:8000
           
