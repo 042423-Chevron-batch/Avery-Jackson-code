@@ -11,7 +11,7 @@ jobs:
   build_Multistep:
     runs-on: ubuntu-latest
     env:
-      WORKIN_DIR: Hangman
+      WORKIN_DIR: avejackson/hangman:8000
     steps:
       - name: checkout git repo
         uses: actions/checkout@v3
@@ -32,7 +32,11 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v4
         with:
+<<<<<<< HEAD
           context: ${{ env.WORKIN_DIR }}
+=======
+          context: .
+>>>>>>> fca9628506e60f445ab6454968e946cf5266b4bc
           push: true
           tags: avejackson/hangman:8000
           
