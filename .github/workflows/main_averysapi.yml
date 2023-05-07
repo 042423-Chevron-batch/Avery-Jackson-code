@@ -39,13 +39,13 @@ jobs:
           tags: avejackson/hangman:8000
           
       - name: dotnet publish
-        run: dotnet publish ${{ env.WORKING_DIR }} -c Release -o myapp
+        run: dotnet publish ${{ env.WORKING_DIR }} -c Release -o dist
           
       - name: Upload Artifact 
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: myapp
+          path: dist
           
   deploy:
     runs-on: ubuntu-latest
