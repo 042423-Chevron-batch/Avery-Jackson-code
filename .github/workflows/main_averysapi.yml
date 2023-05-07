@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: Hangman
+          path: dist
           context: ${{ env.WORKING_DIR }}
           
   deploy:
@@ -51,6 +51,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      
     steps:
       - name: Download artifact from build_Multistep
         uses: actions/download-artifact@v2
@@ -66,7 +67,7 @@ jobs:
           #context: ${{ env.WORKING_DIR }}
           slot-name: 'Production'
           publish-profile: ${{ secrets.AVERYSAPI }}
-          package: ${{ env.WORKING_DIR }}
+          package: .
 
 
 
