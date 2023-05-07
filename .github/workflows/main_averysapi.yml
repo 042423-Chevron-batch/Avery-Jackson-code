@@ -3,8 +3,6 @@ name: Hangman Pipeline
 on:
   push:
     branches: ["main"]
-    paths:
-      - dist/**
   pull_request: 
     branches: ["main"]
   workflow_dispatch:
