@@ -11,7 +11,7 @@ jobs:
   build_Multistep:
     runs-on: ubuntu-latest
     env:
-      WORKING_DIR: Hangman
+      WORKIN_DIR: Hangman
     steps:
       - name: checkout git repo
         uses: actions/checkout@v3
@@ -32,12 +32,12 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: ${{ env.WORKING_DIR }}
+          context: ${{ env.WORKIN_DIR }}
           push: true
           tags: avejackson/hangman:8000
           
       - name: dotnet publish
-        run: dotnet publish ${{ env.WORKING_DIR }} -c Release -o dist
+        run: dotnet publish ${{ env.WORKIN_DIR }} -c Release -o dist
           
       - name: Upload Artifact 
         uses: actions/upload-artifact@v2
@@ -57,14 +57,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          context: ${{ env.WORKING_DIR }}
+          context: ${{ env.WORKIN_DIR }}
         
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'averysapi'
-          #context: ${{ env.WORKING_DIR }}
+          #context: ${{ env.WORKIN_DIR }}
           slot-name: 'Production'
           publish-profile: ${{ secrets.AVERYSAPI }}
           package: .
