@@ -44,7 +44,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: myapp
+          path: Hangman
+          context: c#/Hangman
           
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +59,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          #context: ${{ env.WORKIN_DIR }}
+          context: c#/Hangman
+ 
         
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
