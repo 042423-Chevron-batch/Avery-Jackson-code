@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: dist
+          path: myapp
           
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          context: ${{ env.WORKIN_DIR }}
+          #context: ${{ env.WORKIN_DIR }}
         
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
